@@ -1,0 +1,18 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+th.mat-column-actions {
+    width: 130px;
+}
+
+.add-quiz-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}

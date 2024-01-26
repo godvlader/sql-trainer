@@ -1,0 +1,84 @@
+<div *ngIf="question" class="container">
+  <div class="nav">
+      <div class="buttons">
+          <button mat-icon-button tabindex="-1" (click)="navigateToPreviousQuestion()" [disabled]="isPrevButtonDisabled">
+              <mat-icon>arrow_back_ios</mat-icon>
+          </button>
+
+          <button mat-icon-button tabindex="-1" (click)="navigateToNextQuestion()" [disabled]="isNextButtonDisabled">
+              <mat-icon>arrow_forward_ios</mat-icon>
+          </button>
+      </div>
+
+      <div class="question-info">
+          <!-- <p><strong>Question ID:</strong> {{ question.id }}</p> -->
+          <p><strong>{{ question.quizName }} - Exercice {{currentQuestionNumber}}</strong></p>
+          <!-- <span style="color: red;" *ngIf="isNextButtonDisabled || isPrevButtonDisabled">No more questions for this quiz</span> -->
+      </div>
+      
+      <div class="exit-button">
+          <button (click)="exit()"  *ngIf="!isreadonly">Exit</button> 
+      </div>
+  </div>
+
+  <h2>{{ question.body }}</h2>
+
+  <div class="code-editor">
+      <p>Votre requete : <span *ngIf="!isQuestionAnswered">(pas encore répondu)</span></p>
+      <code-editor #editor [(ngModel)]="query" [database]="database"></code-editor> 
+      <!-- <label for="readonly">Read Only</label>&nbsp; -->
+      <!-- <input id="readonly" type="checkbox" [(ngModel)]="editor.readOnly"> -->
+      <br>
+      <!-- {{ question.quiz.database.name }} -->
+      <!-- ng if avec le resultat if envoyé -->
+      <!-- ng if avec la solutions if clicked  -->
+      <!-- <textarea [(ngModel)]="query" cols="80" rows="5" style="width: 100%"></textarea> -->
+      <div class="sql-buttons">
+          <button (click)="send()" *ngIf="!isreadonly">Envoyer</button>
+          <button (click)="remove()"  *ngIf="!isreadonly">Effacer</button>
+          <button (click)="solutions()" *ngIf="!isTest && !isreadonly">Voir solutions</button>
+      </div>
+  </div>
+
+  <p *ngIf="timestamp && isQuestionAnswered">{{ timestamp | date:'dd/MM/yyyy H:mm:ss' }}</p>  <!-- ONLY IN TRAINING -->
+
+  <div *ngIf="!isTest || (isTest && isreadonly)">
+      <!-- Correct or error messages -->
+      <div *ngIf="isResponseCorrect" [innerHTML]="correctMessage" class="response-correct">{{ correctMessage }}</div>
+      <div *ngIf="!isResponseCorrect && responseErrors && responseErrors.length > 0 && isQuestionAnswered" class="response-incorrect">
+          Votre requête a retourné un mauvais résultat:
+          <ul>
+              <li *ngFor="let error of responseErrors">{{ error }}</li>
+          </ul>
+      </div>
+      <br>
+      <!-- nb lignes -->  
+      <p *ngIf="rowCount > 0 && isQuestionAnswered">{{ rowCount }} lignes</p>
+
+      <!-- SQL results table -->
+      <div *ngIf="dataTable && dataTable.length">
+          <table class="sql-results-table">
+              <thead>
+                  <tr><th *ngFor="let column of columnTab">{{ column }}</th></tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let row of dataTable">
+                      <td *ngFor="let data of row">{{ data }}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <!-- Solutions (visible only if NOT a test) -->
+  <div *ngIf="showSolutions || (!isTest && isResponseCorrect) || (!isTest && isreadonly && isQuestionAnswered) || (isTest && isreadonly && isQuestionAnswered)">
+    <div *ngFor="let solution of question.solutions">
+        <p><strong>Solution {{ solution.order }}:</strong></p>
+        <code class="solutions">{{ solution.sql }}</code>
+    </div>
+</div>
+
+
+<div *ngIf="!question" class="loading">
+  Loading question...
+</div>

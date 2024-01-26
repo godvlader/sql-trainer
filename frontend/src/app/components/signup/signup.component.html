@@ -1,0 +1,70 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="row col-3">
+    <h1>Signup</h1>
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input #email matInput [formControl]="ctlEmail" required appSetFocus>
+        <mat-error class="field-error" *ngIf="ctlEmail.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlEmail.hasError('email')">Invalid email address</mat-error>
+        <mat-error class="field-error" *ngIf="ctlEmail.hasError('emailNotAvailable')">Email is already used</mat-error>
+        <mat-error class="field-error" *ngIf="ctlEmail.hasError('invalidEmailFormat')">Invalid email format (use bla@bla.bla)</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [formControl]="ctlPassword" required>
+        <mat-error class="field-error" *ngIf="ctlPassword.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlPassword.hasError('minlength')">Minimum length is {{ctlPassword.errors?.minlength?.requiredLength}}</mat-error>
+        <mat-error class="field-error" *ngIf="ctlPassword.hasError('insufficientLetters')">Use at least 3 LETTERS</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" [formControl]="ctlPasswordConfirm" required>
+        <mat-error class="field-error" *ngIf="ctlPasswordConfirm.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlPasswordConfirm.hasError('passwordNotMatched')">Passwords do not match</mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" [formControl]="ctlFirstname" >
+        <mat-error class="field-error" *ngIf="ctlFirstname.hasError('custom')">{{ctlFirstname.errors?.custom}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" [formControl]="ctlLastname" >
+        <mat-error class="field-error" *ngIf="ctlLastname.hasError('custom')">{{ctlLastname.errors?.custom}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Full Name</mat-label>
+        <input matInput type="text" [formControl]="ctlFullname" required>
+        <mat-error class="field-error" *ngIf="ctlFullname.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlFullname.hasError('custom')">{{ctlFullname.errors?.custom}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Birthdate</mat-label>
+        <input matInput type="datetime" [formControl]="ctlBirthdate" placeholder="YYYY-MM-DD" required>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('required')">Required</mat-error>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('custom')">{{ctlBirthdate.errors?.custom}}</mat-error>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('birthdateInFuture')">Birthdate can't be in the future</mat-error>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('invalidDateFormat')">Invalid date format (use YYYY-MM-DD)</mat-error>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('tooYoung')">User must be at least 18 years old</mat-error>
+        <mat-error class="field-error" *ngIf="ctlBirthdate.hasError('invalidDate')">Invalid date</mat-error>
+    </mat-form-field>
+
+   <mat-form-field>
+  <mat-label>Pseudo</mat-label>
+  <input matInput type="text" [formControl]="ctlPseudo" placeholder="bobby" required>
+  <mat-error class="field-error" *ngIf="ctlPseudo.hasError('required')">Required</mat-error>
+  <mat-error class="field-error" *ngIf="ctlPseudo.hasError('minlength')">Minimum length is {{ctlPseudo.errors?.minlength?.requiredLength}}</mat-error>
+  <mat-error class="field-error" *ngIf="ctlPseudo.hasError('custom')">{{ctlPseudo.errors?.custom}}</mat-error>
+  <mat-error class="field-error" *ngIf="ctlPseudo.hasError('pseudoNotAvailable')">Pseudo is not available</mat-error>
+</mat-form-field>
+
+
+    <div>
+        <button [disabled]="loading" mat-stroked-button>Sign Up</button>
+    </div>
+</form>

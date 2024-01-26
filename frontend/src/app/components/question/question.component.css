@@ -1,0 +1,65 @@
+/* Styles for the container div */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Styles for the buttons */
+.buttons {
+display: flex;
+align-items: center;
+}
+
+/* Add margin to separate buttons and question info */
+.buttons > * {
+margin-right: 10px;
+}
+
+/* Center the question info */
+.question-info {
+ flex: 1; /*Take remaining space */
+text-align: center;
+}
+
+h2{
+    color: rgb(94,150,195);
+}
+
+/* Styles for the exit button */
+.exit-button {
+margin-left: 10px; /* Add margin to separate question info from the exit button */
+}
+
+.sql-buttons button{
+    margin-right: 15px;
+}
+
+.error-message{
+    color: red;
+    font-size: bold;
+}
+
+.sql-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.sql-results-table th, .sql-results-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.sql-results-table thead {
+    background-color: #f4f4f4;
+}
+.response-correct, .solutions {
+    color: green;
+}
+.response-incorrect {
+    color: red;
+}
+  

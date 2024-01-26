@@ -1,0 +1,19 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+th.mat-column-actions {
+    width: 130px;
+}
+
+.darker-list {
+    background-color: #333 !important;
+    color: white !important;
+}
+
+

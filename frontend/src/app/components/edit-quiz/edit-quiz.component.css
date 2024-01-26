@@ -1,0 +1,27 @@
+.large-textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.dates-section {
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    gap: 20px; /* Spacing between date fields */
+}
+
+/* You can adjust the width of each date picker field if necessary */
+.mat-form-field {
+    width: 100%;
+}
+
+.dates-section {
+    width: 100%; /* or a specific width large enough to hold both fields */
+    display: flex; /* This can help in aligning items in a row */
+    flex-wrap: wrap; /* This allows items to wrap if they can't fit in one line */
+}
+  
+
+.wide-date-field-start, .wide-date-field-end {
+    width: 120%; /* or a specific width */
+}
+  

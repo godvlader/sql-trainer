@@ -1,0 +1,24 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+/* Default styles (light mode) */
+body {
+  /* Define your light theme colors and styles here */
+  background-color: white;
+  color: black;
+  /* ... other styles for light mode */
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  /* Define your dark theme colors and styles here */
+  background-color: #191919; /* Dark background color */
+  color: #e0e0e0;
+  filter: invert(90%);
+  /* ... other styles for dark mode */
+}
+
+body.dark-mode .mat-error {
+  color: red; /* Red color for error messages in dark mode */
+  /* ... other styles for mat-error in dark mode */
+}

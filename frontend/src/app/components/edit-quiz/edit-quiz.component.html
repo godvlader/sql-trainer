@@ -1,0 +1,155 @@
+<!-- QuizEditionComponent.html -->
+
+<form id="frm" class="form" [formGroup]="quizForm" novalidate>
+    <div class="row">
+      <!-- Left -->
+        <div class="col-sm-4">
+        <!-- Name -->
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput [formControl]="Name">
+          <mat-error *ngIf="Name.errors?.required">Name is required.</mat-error>
+          <mat-error *ngIf="Name.errors?.minlength">Name must be at least 3 characters.</mat-error>
+          <mat-error *ngIf="Name.errors?.nameExists">Name is already taken.</mat-error>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput [formControl]="Description" rows="4"></textarea>
+        </mat-form-field>
+  
+        <!-- Radio buttons -->
+        <div>
+          <mat-radio-group [formControl]="ctlIsTest" (change)="updateIsTest($event)">
+            <mat-radio-button value="Training" [disabled]="isReadOnly">Training</mat-radio-button>
+            <mat-radio-button value="Test" [disabled]="isReadOnly">Test</mat-radio-button>
+          </mat-radio-group>
+        </div>
+    </div>
+  
+      <!-- Middle -->
+    <div class="col-sm-4">
+        <!-- Database -->
+        <mat-form-field>
+            <mat-label>Base des données</mat-label>
+            <mat-select [formControl]="DatabaseId" required>
+              <mat-option *ngFor="let db of databases" [value]="db.id">
+                {{ db.name }}
+            </mat-option>                     
+          </mat-select>
+          <mat-error *ngIf="DatabaseId.errors?.required">Database is required.</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="col-sm-4">
+      <!-- Published -->
+      <mat-slide-toggle [formControl]="IsPublished">Publié</mat-slide-toggle>
+    </div>
+        <ng-container *ngIf="isDateVisible" >
+            <div class="col-sm-4">
+              <div class="dates-section">
+                <mat-form-field class="wide-date-field">
+                  <mat-label>Start Date</mat-label>
+                  <input matInput [matDatepicker]="pickerStart" formControlName="Start" required>
+                  <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerStart></mat-datepicker>
+                  <mat-error *ngIf="Start.errors?.required">Start date is required.</mat-error>
+                  <mat-error *ngIf="Start.errors?.inPast">Date cannot be in the past.</mat-error>
+                  <mat-error *ngIf="Start.errors?.afterEnd">Start date must be before the end date.</mat-error>
+                </mat-form-field>
+                <mat-form-field class="wide-date-finish">
+                  <mat-label>End Date</mat-label>
+                  <input matInput [matDatepicker]="pickerFinish" formControlName="Finish">
+                  <mat-datepicker-toggle matSuffix [for]="pickerFinish"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFinish></mat-datepicker>
+                  <mat-error *ngIf="Finish.errors?.beforeStart">End date must be after the start date.</mat-error>
+                  <mat-error *ngIf="Finish.errors?.beforeToday">End date cannot be before today.</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+        </ng-container>
+    </div>
+    <br>
+    <!-- Save and delete -->
+    <div class="row">
+      <!--column to push the buttons to the left -->
+      <div class="col-sm-7"></div>
+      <div class="col-sm-1">
+        <button (click)="saveQuiz()" [disabled]="isReadOnly || !isFormValid()"><mat-icon>save</mat-icon></button>
+      </div>
+      <div class="col-sm-1">
+        <button (click)="deleteQuiz()"><mat-icon>delete</mat-icon></button>
+      </div>
+      <!--empty column to create space to the right of the Delete Quiz button -->
+      <div class="col-sm-1"></div>
+    </div>    
+    <div class="add-questions-btn">
+      <button mat-icon-button tabindex="-1" (click)="addQuestion()"
+              matTooltip="add question" [disabled]="isReadOnly">
+          <mat-icon>add_circle</mat-icon>
+      </button>
+    </div>
+
+  <mat-accordion [multi]="true">
+    <div *ngIf="checkForQuestions()" class="error-message">
+      <mat-error>No questions added. Please add at least one question.</mat-error>
+    </div>
+    <mat-expansion-panel *ngFor="let question of Questions; let qIndex = index" 
+                     [expanded]="panelOpenState[qIndex]"
+                     (opened)="setPanelState(qIndex, true)"
+                     (closed)="setPanelState(qIndex, false)">
+      <mat-expansion-panel-header>
+        <div *ngIf="checkForSolutions(qIndex)" class="error-message">
+          <mat-error>No solutions added for this question. Please add at least one solution.</mat-error>
+        </div>
+        <mat-panel-title>
+          {{ isPanelOpen(qIndex) ? 'Question ' + (qIndex + 1) : (qIndex + 1) + '. ' + (question.body || 'New Question') }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <button mat-icon-button (click)="OrderUp(qIndex)" aria-label="Move Up" *ngIf="qIndex > 0" [disabled]="isReadOnly">
+            <mat-icon>arrow_upward</mat-icon>
+          </button>
+          <button mat-icon-button (click)="OrderDown(qIndex)" aria-label="Move Down" *ngIf="qIndex < Questions.length - 1" [disabled]="isReadOnly">
+            <mat-icon>arrow_downward</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deleteQuestion(qIndex)" aria-label="Delete" [disabled]="isReadOnly">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!-- question content -->
+      <textarea class="large-textarea" [ngModelOptions]="{standalone: true}" [(ngModel)]="question.body" [disabled]="isReadOnly"></textarea>
+      <mat-error *ngIf="question.body!.trim().length < 2">
+        Question body must be at least 2 characters and not just whitespace.
+      </mat-error>
+          <!--Solutions -->
+        <div *ngFor="let solution of question.solutions; let sIndex = index">
+          <!-- Code editor -->
+          <p> Solution {{ sIndex + 1}}</p>
+          <code-editor #editor [readOnly]="isReadOnly" [(ngModel)]="solution.sql" [ngModelOptions]="{standalone: true}" [database]="database"></code-editor>
+          <mat-error *ngIf="solution.sql!.trim().length == 0">SQL content cannot be empty or consist only of whitespace.</mat-error>
+          <!-- Solution buttons -->
+          <div class="solution-controls">
+            <button mat-icon-button (click)="moveSolutionUp(qIndex, sIndex)" aria-label="Move Up" *ngIf="sIndex > 0" [disabled]="isReadOnly">
+              <mat-icon>arrow_upward</mat-icon>
+            </button>
+            <button mat-icon-button (click)="moveSolutionDown(qIndex, sIndex)" aria-label="Move Down" *ngIf="sIndex < question.solutions.length - 1" [disabled]="isReadOnly">
+              <mat-icon>arrow_downward</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteSolution(qIndex, sIndex)" aria-label="Delete" [disabled]="isReadOnly">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      <!--add a new question-->
+      <div class="add-question-bottom">
+        <button mat-icon-button (click)="addSolution(qIndex)" aria-label="Add Question" [disabled]="isReadOnly">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</form>
+  

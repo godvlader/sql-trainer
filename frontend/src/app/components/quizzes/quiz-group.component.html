@@ -1,0 +1,23 @@
+<fieldset class="border p-2">
+    <ng-container>
+        <mat-form-field>
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="filterChanged($event)" [value]="filter" appSetFocus>
+        </mat-form-field>
+       <!-- For displaying quizzes -->
+       <div>
+            <div class="col-sm-12">
+                <h1>Quiz d'entraînement:</h1>
+            </div>
+            <app-quizlist [filter]="filter" [isTest]="false"></app-quizlist>
+       </div>
+       <br>
+       <br>
+        <div>
+            <div class="col-sm-12">
+                <h1>Quiz de test:</h1>
+            </div>
+            <app-quizlist [filter]="filter" [isTest]="true"></app-quizlist>
+        </div>
+    </ng-container>
+</fieldset>
