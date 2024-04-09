@@ -44,6 +44,58 @@ Contributors looking to improve SQL Trainer or add new features are welcome. We 
 
 SQL Trainer is open-sourced under the MIT license. We encourage educational institutions, teachers, and students to leverage this tool to enhance the learning and teaching of SQL.
 
+Welcome page
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/b66cb6cf-45cd-4bbd-90c7-d22c8833a8d4)
+
+Login page
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/59b54134-20e3-43aa-84a8-6d548493540f)
+
+Signup page
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/a5cfb823-0220-46e1-bbb7-c1a60c0eeba5)
+
+Quizzes page
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/5afbbed2-cee7-4eac-9d88-e3d0112b8d86)
+
+Inside quiz with already answered questions
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/2e0b4a60-1b2a-4eb3-9dfb-b9f0597bcd6b)
+
+Unanswered question
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/1ec3c00c-5139-49c2-b44a-1c63c981f1b1)
+
+Wrong answer errors
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/65327227-dd8d-405c-b0b6-57e8c1f382c0)
+
+Correct answer
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/5cb38050-4e69-45b7-9a86-341ceea90e0d)
+
+Finished test
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/f0e6a5e4-ac41-41dd-80eb-23a8fcc6785b)
+
+Teacher's view
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/6c83907a-6cd7-4813-9596-699341a47116)
+
+Add new quiz
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/618c69a4-3074-4388-b4d7-baafdb1ae576)
+
+Edit quiz
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/1ab30cd3-3d86-4041-b663-138b1636808e)
+
+Deleting Quiz
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/2c2c08ec-982f-4f8e-a492-72351267407a)
+
+Filter
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/b7a6fb89-a6ee-480c-89e8-0d5c8339fe52)
+
+Admin panel with users
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/6399fd59-c39f-4f94-9710-c6dc70ef5aef)
+
+Add new user
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/57d7783b-92a7-4057-8629-a67fb5207f9d)
+
+Editing user
+![image](https://github.com/godvlader/sql-trainer/assets/79583000/834c2411-a4e5-496e-83c5-914e44e833c7)
+
+
 
 
 
