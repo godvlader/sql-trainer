@@ -1,48 +1,62 @@
-# SQL Trainer
+# SQL Trainer Application
 
-SQL Trainer is a comprehensive web application designed to facilitate the creation, management, and undertaking of online quizzes with a focus on SQL (Structured Query Language). This platform uniquely caters to educators and students, enhancing the learning experience by allowing the formulation of questions in natural language and the submission of answers via SQL queries. It leverages a database schema assumed to be preloaded in XAMPP, simulating real-world SQL interaction within an educational context.
+The SQL Trainer Application is designed to facilitate the creation, management, and taking of online quizzes in the context of a database basics course. It allows instructors to create quizzes, where questions are expressed in natural language. Students answer these questions by submitting SQL query responses. Each quiz is associated with a database schema (Database class) assumed to be pre-loaded in XAMPP (for example, the suppliers database with SPJ, S, P, and J tables). Additionally, the application features an admin panel for comprehensive user control and management.
+
+## Technologies Used
+- **Server**: ASP.NET Core and EF Core for database access.
+- **Client**: Single Page Application (SPA) in Angular.
+- **Communication**: Client-server interactions are facilitated through a secure REST API provided by the server.
 
 ## Features
 
-- **User-Friendly Interface**: Two distinct user roles are defined: `Student` and `Teacher`, each with custom functionalities tailored to enhance their interaction with the platform.
-- **Dynamic Quiz Management**: Features include creating quizzes with detailed attributes (name, description, publication status, etc.), and managing quiz lifecycles from creation to closure.
-- **Interactive Learning and Testing**: Supports both test quizzes with single attempts and standard quizzes with unlimited attempts, encouraging iterative learning through practice.
-- **Real-Time SQL Execution and Feedback**: Executes student-submitted SQL queries in real-time, offering immediate feedback based on the accuracy of query results compared to predefined solutions.
-- **Comprehensive Attempt Tracking**: Monitors quiz attempts meticulously, allowing ongoing attempts to be resumed or closed before starting new ones. Provides detailed feedback for each attempt, including correctness and submission timestamps.
-- **More personal features**:Dark-mode, Admin panel, etc.
+### For Visitors (Not Logged In)
+- **Login**: Access the application by logging in.
+- **Signup** (optional): Register as a new user. By default, a new user is considered a student.
+
+### For Logged-In Users (All Types)
+- **Logout**: Securely sign out of the application.
+
+### For Students
+- **View Published Quizzes**: After logging in, students are directed to a homepage displaying two lists:
+  - A list of quizzes that are not tests.
+  - A list of quizzes that are tests.
+  Each list includes an "Actions" column showing possible actions for each quiz according to the business rules.
+- **Filtering**: A filtering area is provided to refine both lists based on relevant quiz and question data.
+- **Attempt Creation, Viewing, or Modification**: From the lists, students can open an attempt (new or existing, for editing or read-only) and:
+  - Navigate through questions in the order defined in the database using "next" and "previous" buttons.
+  - If the quiz is open for editing, submit an SQL query as an answer for evaluation.
+
+### For Professors
+- **View All Quizzes**: Professors see a list of all quizzes (published or not) upon login, with an editing icon next to each quiz.
+- **Filtering**: An area to filter quizzes based on relevant data.
+- **Quiz Management**: Professors can create a new quiz, modify quiz elements (name, description, associated database, type, status), and manage quiz questions (add, move, delete, modify questions and their solutions).
+
+### Admin Panel
+- **User Control**: Administrators have access to a comprehensive admin panel for user management. This includes creating, editing, and deleting user accounts, as well as assigning roles and permissions.
+- **Quiz and Database Management**: Beyond user control, the admin panel provides tools for managing quizzes and associated database schemas, ensuring that all content is up to date and accurate.
+
+## Business Rules
+- The application differentiates test quizzes from regular quizzes, with specific behaviors for each.
+- Quiz and attempt integrity, including access rights, must be enforced by the backend.
+- Modifications to quizzes are restricted under certain conditions to ensure data integrity.
+
+## Non-Functional Requirements
+- **Data Integrity**: The backend must ensure data integrity, respecting all business rules and access rights during data modifications.
+- **Cascading Deletions**: Deleting an instance that initiates a composition relationship requires cascading deletions of related instances, with a clear and precise confirmation dialog to the user.
 
 ## Getting Started
 
-### Prerequisites
+To get started with the SQL Trainer Application, ensure you have XAMPP installed and the required database schemas loaded. Follow these steps to set up your environment:
 
-- Git for repository cloning.
-- XAMPP for database management and local server setup.
-- PHP 7 or higher as the primary backend language.
-
-### Installation
-
-1. Clone the project repository.
-2. Navigate to the project directory and set up your environment:
-3. Import the provided database schema into your MySQL instance via XAMPP to set up the necessary database structure.
-
-### Configuration
-
-- Adjust `config.php` to reflect your local database settings and any other environment-specific configurations.
-
-## Usage
-
-The application differentiates between student and teacher roles, offering functionalities tailored to each:
-
-- **Students** can view published quizzes, attempt quizzes according to defined rules (e.g., time restrictions, test/non-test distinctions), and receive instant feedback on submissions.
-- **Teachers** can create and manage quizzes, including setting up questions and correct answers, publishing quizzes, and reviewing all attempts.
-
-## Development and Contributions
-
-Contributors looking to improve SQL Trainer or add new features are welcome. We encourage you to fork the repository, make your changes, and submit a pull request. Please ensure your contributions adhere to the project's coding standards and contribute meaningfully to its objectives.
+1. Install XAMPP and start the Apache and MySQL services.
+2. Load the example database schema (e.g., the suppliers database with tables SPJ, S, P, J) into MySQL.
+3. Clone this repository and navigate to the project directory.
+4. Follow the setup instructions provided in the SETUP.md file to configure the application.
 
 ## License
 
-SQL Trainer is open-sourced under the MIT license. We encourage educational institutions, teachers, and students to leverage this tool to enhance the learning and teaching of SQL.
+This project is licensed under the MIT License - see the LICENSE.md file for details.
+
 
 Welcome page
 ![image](https://github.com/godvlader/sql-trainer/assets/79583000/b66cb6cf-45cd-4bbd-90c7-d22c8833a8d4)
